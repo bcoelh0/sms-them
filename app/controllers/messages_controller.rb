@@ -6,9 +6,11 @@ class MessagesController < ApplicationController
 
   def create
     @list = current_user.lists.find(params[:list_id])
+
     if @list.create_messages(message_params)
-      render plain: "SMS sent!"
+      redirect_to @list, notice: "Message sent to list!"
     else
+      redirect_to @list, notice: "There was a problem."
     end
   end
 

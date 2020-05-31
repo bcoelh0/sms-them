@@ -11,7 +11,7 @@ class List < ApplicationRecord
         message.update(sent_at: Time.now)
       end
     rescue
-      false
+      return false
     end
     true
   end
