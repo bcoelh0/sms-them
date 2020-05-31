@@ -21,6 +21,12 @@
 <hr>
 <br>
 
+<%= link_to "Send message to list!", list_messages_new_path(@list) %>
+
+<br>
+<hr>
+<br>
+
 <%= form_with(model: [@list, @contact], local: true) do |form| %>
   <% if @contact.errors.any? %>
     <div id="error_explanation">

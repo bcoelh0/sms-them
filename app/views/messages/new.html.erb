@@ -1,0 +1,24 @@
+<h1>Messages#new</h1>
+<p>Find me in app/views/messages/new.html.erb</p>
+
+<%= form_with(model: [@list, @message], local: true) do |form| %>
+  <% if @message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this list from being saved:</h2>
+      <ul>
+        <% @message.errors.full_messages.each do |error_message| %>
+          <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, rows: 15, cols: 60 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Send message", data: { confirm: "This will send the above message to #{pluralize(@list.contacts.count, "contact")} in #{@list.name}. Are you sure you want to continue?" } %>
+  </div>
+<% end %>
