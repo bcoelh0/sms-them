@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @list.name %>
+</p>
+
+<p>
+  <% if @list.contacts.any? %>
+    <strong>Contacts:</strong>
+    <% @list.contacts.each do |contact| %>
+      <%= contact.name %> | <%= contact.phone_number %> >> <%= link_to 'Edit', edit_list_contact_path(@list, contact) %> | <%= link_to 'Destroy', [@list, contact], method: :delete, data: { confirm: 'Are you sure?' } %>
+      <br>
+    <% end %>
+  <% else %>
+    <strong>No contacts in this list yet...</strong>
+  <% end %>
+</p>
+
+<br>
+<hr>
+<br>
+
+<%= form_with(model: [@list, @contact], local: true) do |form| %>
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this list from being saved:</h2>
+      <ul>
+        <% @contact.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit list name', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>
